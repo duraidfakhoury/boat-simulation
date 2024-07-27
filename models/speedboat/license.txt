@@ -1,0 +1,11 @@
+Model Information:
+* title:	Speedboat
+* source:	https://sketchfab.com/3d-models/speedboat-ee69bea3e40849909d73f6a896e7382a
+* author:	3DDomino (https://sketchfab.com/3DDomino)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Speedboat" (https://sketchfab.com/3d-models/speedboat-ee69bea3e40849909d73f6a896e7382a) by 3DDomino (https://sketchfab.com/3DDomino) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

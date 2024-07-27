@@ -1,0 +1,576 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 176,
+      "max": [
+        -75.26856994628906,
+        37.01466369628906,
+        56.71511459350586
+      ],
+      "min": [
+        -144.19879150390625,
+        -37.2178955078125,
+        42.39883804321289
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 2112,
+      "componentType": 5126,
+      "count": 176,
+      "max": [
+        0.956044614315033,
+        1.0,
+        0.9992009401321411
+      ],
+      "min": [
+        -0.9529481530189514,
+        -1.0,
+        -0.9992009997367859
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 408,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 4224,
+      "componentType": 5126,
+      "count": 30,
+      "max": [
+        -77.38949584960938,
+        37.01466369628906,
+        55.124420166015625
+      ],
+      "min": [
+        -138.89646911621094,
+        -37.2178955078125,
+        42.39883804321289
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 4584,
+      "componentType": 5126,
+      "count": 30,
+      "max": [
+        0.5645335912704468,
+        0.9920423626899719,
+        0.8459279537200928
+      ],
+      "min": [
+        -0.12367795407772064,
+        -0.954373836517334,
+        -0.023573104292154312
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 1632,
+      "componentType": 5125,
+      "count": 66,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 4944,
+      "componentType": 5126,
+      "count": 110,
+      "max": [
+        -14.822052001953125,
+        37.544898986816406,
+        40.8928108215332
+      ],
+      "min": [
+        -208.88717651367188,
+        -37.748130798339844,
+        16.947673797607422
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 6264,
+      "componentType": 5126,
+      "count": 110,
+      "max": [
+        0.9982743263244629,
+        0.9936708807945251,
+        1.0
+      ],
+      "min": [
+        -0.9991328120231628,
+        -0.9936708807945251,
+        -0.23121555149555206
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 1896,
+      "componentType": 5125,
+      "count": 198,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 7584,
+      "componentType": 5126,
+      "count": 304,
+      "max": [
+        0.024444580078125,
+        42.316986083984375,
+        43.45930099487305
+      ],
+      "min": [
+        -227.9755401611328,
+        -42.520225524902344,
+        -0.01976776123046875
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 11232,
+      "componentType": 5126,
+      "count": 304,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -0.9998101592063904
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 2688,
+      "componentType": 5125,
+      "count": 1014,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "3DDomino (https://sketchfab.com/3DDomino)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/speedboat-ee69bea3e40849909d73f6a896e7382a",
+      "title": "Speedboat"
+    },
+    "generator": "Sketchfab-12.68.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 6744,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 14880,
+      "byteOffset": 6744,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 21624,
+      "uri": "scene.bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Chrome_Polished",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.792157,
+          0.819608,
+          0.933333,
+          1.0
+        ],
+        "roughnessFactor": 0.1227450157780493
+      }
+    },
+    {
+      "alphaMode": "BLEND",
+      "doubleSided": true,
+      "name": "Glass_Basic_Grey",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.705882,
+          0.705882,
+          0.705882,
+          0.3361195726854301
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Hard_Rough_Plastic_Blue",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0022686899999999947,
+          0.4214239999999995,
+          0.9024950000000002,
+          1.0
+        ],
+        "metallicFactor": 0.20843593625546455,
+        "roughnessFactor": 0.2261079595546881
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Hard_Rough_Plastic_Grey",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.515023,
+          0.515023,
+          0.515023,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.4145933276179705
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "CHROME_Chrome Polished_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 2,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "GLASS_Glass Basic Grey_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 4,
+            "POSITION": 3
+          },
+          "indices": 5,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "WHITE PLASTIC_Hard Rough Plastic Blue_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 7,
+            "POSITION": 6
+          },
+          "indices": 8,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "0_Hard Rough Plastic Grey_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 10,
+            "POSITION": 9
+          },
+          "indices": 11,
+          "material": 3,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "e04832092ec247d9b0149c76e0ef9dc2.fbx"
+    },
+    {
+      "children": [
+        3,
+        5
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        0.8557710299245012,
+        -0.29336459293758105,
+        -0.42613748949432506,
+        0.0,
+        0.26260756571202787,
+        0.9560006357793572,
+        -0.1307671626222261,
+        0.0,
+        0.4457501663182657,
+        -1.793372123859438e-07,
+        0.8951574103068165,
+        0.0,
+        -366.47064208984375,
+        165.36558532714844,
+        174.90670776367188,
+        1.0
+      ],
+      "name": "Active Camera"
+    },
+    {
+      "name": "Object_4"
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "Default"
+    },
+    {
+      "children": [
+        7
+      ],
+      "matrix": [
+        -0.999999999999996,
+        1.2246467202362698e-16,
+        -9.000009283422622e-08,
+        0.0,
+        -9.000009283422613e-08,
+        4.500004679997005e-08,
+        0.999999999999995,
+        0.0,
+        4.172473048518353e-15,
+        0.999999999999999,
+        -4.500004679997005e-08,
+        0.0,
+        -113.97554779052734,
+        0.01976967416703701,
+        0.10161043703556061,
+        1.0
+      ],
+      "name": "02ZWTC03"
+    },
+    {
+      "children": [
+        8,
+        10,
+        12,
+        14
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        -7.888609052210118e-31,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        7.888609052210118e-31,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "*MODEL_SPACE"
+    },
+    {
+      "children": [
+        9
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        -7.888609052210118e-31,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        7.888609052210118e-31,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "CHROME"
+    },
+    {
+      "mesh": 0,
+      "name": "CHROME_Chrome Polished_0"
+    },
+    {
+      "children": [
+        11
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        -7.888609052210118e-31,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        7.888609052210118e-31,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "GLASS"
+    },
+    {
+      "mesh": 1,
+      "name": "GLASS_Glass Basic Grey_0"
+    },
+    {
+      "children": [
+        13
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        -7.888609052210118e-31,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        7.888609052210118e-31,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "WHITE PLASTIC"
+    },
+    {
+      "mesh": 2,
+      "name": "WHITE PLASTIC_Hard Rough Plastic Blue_0"
+    },
+    {
+      "children": [
+        15
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        -7.888609052210118e-31,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        7.888609052210118e-31,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "0"
+    },
+    {
+      "mesh": 3,
+      "name": "0_Hard Rough Plastic Grey_0"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
