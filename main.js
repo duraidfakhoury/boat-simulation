@@ -1,247 +1,222 @@
+import * as THREE from "three";
+import Stats from "three/addons/libs/stats.module.js";
+import * as dat from "dat.gui";
 import "./style.css";
 import "./costumDatGUI.css";
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import * as dat from "dat.gui";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { Water } from "three/addons/objects/Water.js";
+import { Sky } from "three/addons/objects/Sky.js";
 import Physics from "./Physics";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
-// Create Physics object
-let physic = new Physics(5.23, 2.09, 0.95, 450);
+let elapsedtime;
+let oldElapsedTime = 0;
+let deltatime = 0;
+let time = 0;
 
-// Get canvas from DOM
-const canvas = document.querySelector("canvas.webgl");
-
-// Load textures
-const textureLoader = new THREE.TextureLoader();
-const grasscolorTexture = textureLoader.load("./textures/water/water.jpg");
-const grassambientocculsionTexture = textureLoader.load("./textures/water/water.jpg");
-const grassroughnessTexture = textureLoader.load("./textures/water/water.jpg");
-const grassnormalTexture = textureLoader.load("./textures/water/water.jpg");
-const DisplacementTexture = textureLoader.load("./textures/grass/Displacement.jpg");
-
-// Create scene
-const scene = new THREE.Scene();
-
-// Create ground
-const geometry = new THREE.CircleGeometry(20000, 20000);
-const material = new THREE.MeshStandardMaterial({
-  map: grasscolorTexture,
-  aoMap: grassambientocculsionTexture,
-  roughnessMap: grassroughnessTexture,
-  normalMap: grassnormalTexture,
-  displacementMap: DisplacementTexture,
-});
-const Meshfloor = new THREE.Mesh(geometry, material);
-Meshfloor.rotation.x = -Math.PI * 0.5;
-Meshfloor.position.y = 0;
-scene.add(Meshfloor);
-
-grasscolorTexture.repeat.set(18000, 18000);
-grassambientocculsionTexture.repeat.set(18000, 18000);
-grassnormalTexture.repeat.set(18000, 18000);
-grassroughnessTexture.repeat.set(18000, 18000);
-DisplacementTexture.repeat.set(18000, 18000);
-
-grasscolorTexture.wrapS = THREE.RepeatWrapping;
-grassambientocculsionTexture.wrapS = THREE.RepeatWrapping;
-grassnormalTexture.wrapS = THREE.RepeatWrapping;
-grassroughnessTexture.wrapS = THREE.RepeatWrapping;
-DisplacementTexture.wrapS = THREE.RepeatWrapping;
-
-grasscolorTexture.wrapT = THREE.RepeatWrapping;
-grassambientocculsionTexture.wrapT = THREE.RepeatWrapping;
-grassnormalTexture.wrapT = THREE.RepeatWrapping;
-grassroughnessTexture.wrapT = THREE.RepeatWrapping;
-DisplacementTexture.wrapT = THREE.RepeatWrapping;
-
-// Lighting
-const ambientLight = new THREE.AmbientLight("#b9d5ff", 0.75);
-scene.add(ambientLight);
-const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
-moonLight.position.set(4, 5, -2);
-scene.add(moonLight);
-
-// Camera and resizing
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-};
-window.onload = () => {
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
-  camera.aspect = sizes.width / sizes.height;
-  camera.updateProjectionMatrix();
-  renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-};
-
-// Camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
-camera.position.x = 15;
-camera.position.y = 10;
-camera.position.z = 70;
-scene.add(camera);
-
-// Camera controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-
-// Renderer
-const renderer = new THREE.WebGLRenderer({
-  canvas: canvas,
-});
-renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-// Handle resizing
-window.addEventListener("resize", () => {
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
-  camera.aspect = sizes.width / sizes.height;
-  camera.updateProjectionMatrix();
-  renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  document.addEventListener("keydown", onDocumentKeyDown, false);
-});
-
-renderer.setClearColor("#87ceeb");
-
-// Show axes
-var axesHelper = new THREE.AxesHelper(500);
-scene.add(axesHelper);
-
-// Load models
-const loader = new GLTFLoader();
-const mixers = [];
-const models = [];
-let boatModel;
 let initialHeight = 3.6;
 let initialWidth = 8.4;
 let initialLength = 22.7;
 
-let heightRatio = 0.95 / initialHeight;
-let lengthRatio = 5.23 / initialLength;
-let widthRatio = 2.09 / initialWidth;
+let container, stats;
+let camera, scene, renderer, loader, clock;
+let controls, water, sun, physic, gui, params, model;
+let rotationSpeed = 0.1; // سرعة الدوران
 
-function loadModel(modelPath, modelLocation, modelScale, animationIndex, modelRotations) {
-  loader.load(
-    modelPath,
-    function (gltf) {
-      const mixer = new THREE.AnimationMixer(gltf.scene);
-      const animation = gltf.animations[animationIndex];
-      if (animation) {
-        const action = mixer.clipAction(animation);
-        mixers.push(mixer);
-        action.play();
-      }
-      const model = gltf.scene;
-      model.scale.set(modelScale.x, modelScale.y, modelScale.z);
-      model.position.set(modelLocation.x, modelLocation.y, modelLocation.z);
-      model.rotation.set(modelRotations.x, modelRotations.y, modelRotations.z);
-      scene.add(model);
-      models.push(model);
-      if (modelPath === "models/speedboat/scene.gltf") {
-        boatModel = model;
-      }
-    },
-    undefined,
-    function (error) {
-      console.error(error);
-    }
-  );
+document.addEventListener("DOMContentLoaded", init);
+
+function init() {
+  container = document.getElementById("container");
+
+  physic = new Physics(5.2, 2.09, 0.95, 450);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setAnimationLoop(animate);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.5;
+  container.appendChild(renderer.domElement);
+
+  scene = new THREE.Scene();
+
+  camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
+  camera.position.set(30, 30, 100);
+
+  sun = new THREE.Vector3();
+
+  // Water
+  const waterGeometry = new THREE.PlaneGeometry(10000, 10000);
+  water = new Water(waterGeometry, {
+    textureWidth: 512,
+    textureHeight: 512,
+    waterNormals: new THREE.TextureLoader().load("./models/waternormals.jpg", function (texture) {
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    }),
+    sunDirection: new THREE.Vector3(),
+    sunColor: 0xffffff,
+    waterColor: 0x000054,
+    distortionScale: 3.7,
+    fog: scene.fog !== undefined,
+  });
+
+  water.rotation.x = -Math.PI / 2;
+  scene.add(water);
+
+  // Skybox
+  const sky = new Sky();
+  sky.scale.setScalar(10000);
+  scene.add(sky);
+
+  const skyUniforms = sky.material.uniforms;
+  skyUniforms["turbidity"].value = 10;
+  skyUniforms["rayleigh"].value = 2;
+  skyUniforms["mieCoefficient"].value = 0.005;
+  skyUniforms["mieDirectionalG"].value = 0.8;
+
+  const parameters = { elevation: 2, azimuth: 180 };
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  let renderTarget;
+
+  function updateSun() {
+    const phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
+    const theta = THREE.MathUtils.degToRad(parameters.azimuth);
+
+    sun.setFromSphericalCoords(1, phi, theta);
+
+    sky.material.uniforms["sunPosition"].value.copy(sun);
+    water.material.uniforms["sunDirection"].value.copy(sun).normalize();
+
+    if (renderTarget !== undefined) renderTarget.dispose();
+
+    renderTarget = pmremGenerator.fromScene(scene, 0.1);
+    scene.environment = renderTarget.texture;
+  }
+
+  updateSun();
+
+  // Clock
+  clock = new THREE.Clock();
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.maxPolarAngle = Math.PI * 0.495;
+  controls.target.set(0, 10, 0);
+  controls.minDistance = 40.0;
+  controls.maxDistance = 200.0;
+  controls.update();
+
+  loader = new GLTFLoader().setPath("models/speedboat/");
+  loader.load("scene.gltf", async (gltf) => {
+    model = gltf.scene;
+
+    await renderer.compileAsync(model, camera, scene);
+
+    model.scale.set(0.1, 0.1, 0.1);
+    model.rotation.set(0, -Math.PI/2, 0); // تدوير الموديل ليواجه الأمام
+    model.position.set(0, 2, 0);
+
+    scene.add(model);
+
+    render();
+  });
+
+  stats = new Stats();
+  container.appendChild(stats.dom);
+
+  // dat.GUI settings
+  gui = new dat.GUI();
+  params = {
+    rpm: 500,
+    boatLength: 5.2,
+    boatWidth: 2.09,
+    boatHeight: 0.95,
+    boatMass: 450,
+  };
+
+  let rpm = 0;
+  const rpmOptions = [0, 500, 2000, 5000, 7000];
+  gui.add(params, 'rpm', rpmOptions).name('RPM').onChange(value => {
+    rpm = value;
+  });
+  gui.add(params, "boatLength").name("Length (m)").onChange(updateBoatParams);
+  gui.add(params, "boatWidth").name("Width (m)").onChange(updateBoatParams);
+  gui.add(params, "boatHeight").name("Height (m)").onChange(updateBoatParams);
+  gui.add(params, "boatMass").name("Weight (kg)").onChange(updateBoatParams);
+
+  window.addEventListener("resize", onWindowResize);
+
+  // Keyboard controls
+  window.addEventListener("keydown", onKeyDown);
+  window.addEventListener("keyup", onKeyUp);
 }
 
-const modelPaths = ["models/speedboat/scene.gltf", ];
-const modelLocations = [
-  { x: 0, y: 0, z: 0 },
-];
-const modelRotations = [
-  { x: 0, y: Math.PI / 2, z: 0 },
-];
-const modelScales = [
-  { x: lengthRatio, y: heightRatio, z: widthRatio },
-];
-const animationIndices = [0];
-
-for (let i = 0; i < modelPaths.length; i++) {
-  loadModel(modelPaths[i], modelLocations[i], modelScales[i], animationIndices[i], modelRotations[i]);
+function onKeyDown(event) {
+  switch (event.code) {
+    case "ArrowLeft":
+      physic.updateRotationAngle(physic.rotationAngle + rotationSpeed);
+      break;
+    case "ArrowRight":
+      physic.updateRotationAngle(physic.rotationAngle - rotationSpeed);
+      break;
+  }
 }
 
-// dat.GUI settings
-const gui = new dat.GUI();
-const params = {
-  rpm: 0,
-  boatLength: 5.23,
-  boatWidth: 2.09,
-  boatHeight: 0.95,
-  boatMass: 450
-};
-
-// Add RPM control to GUI
-gui.add(params, 'rpm', 0, 7000).name('RPM').onChange(value => {
-  console.log(`RPM: ${value}`);
-});
-gui.add(params, 'boatLength').name('Length (m)').onChange(updateBoatParams);
-gui.add(params, 'boatWidth').name('Width (m)').onChange(updateBoatParams);
-gui.add(params, 'boatHeight').name('Height (m)').onChange(updateBoatParams);
-gui.add(params, 'boatMass').name('Weight (kg)').onChange(updateBoatParams);
+function onKeyUp(event) {
+  // Implement any logic needed when keys are released if necessary
+}
 
 function updateBoatParams() {
-  if (boatModel) {
-    boatModel.scale.set(params.boatLength / initialLength, params.boatHeight / initialHeight, params.boatWidth / initialWidth);
-    
-    // Update Physics object
+  if (model) {
+    model.scale.set(
+      params.boatLength / initialLength,
+      params.boatHeight / initialHeight,
+      params.boatWidth / initialWidth
+    );
+
     physic.updateParams(params.boatLength, params.boatWidth, params.boatHeight, params.boatMass);
   }
 }
 
-const arrowHelper = [];
-function DrawVector(IndexOfVector, vector3, color, lengthOfVector, startingPointOfVector) {
-  var dir = new THREE.Vector3(vector3.x, vector3.y, vector3.z);
-  dir.normalize();
-  var origin = new THREE.Vector3(startingPointOfVector.x, startingPointOfVector.y, startingPointOfVector.z);
-  var length = lengthOfVector;
-  var hex = color;
-  if (arrowHelper[IndexOfVector] !== undefined) {
-    scene.remove(arrowHelper[IndexOfVector]);
-  }
-  arrowHelper[IndexOfVector] = new THREE.ArrowHelper(dir, origin, length, hex);
-  scene.add(arrowHelper[IndexOfVector]);
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  render();
 }
 
-var elapsedtime;
-var oldElapsedTime;
-var deltatime;
-var time = 0 ; 
-const clock = new THREE.Clock();
-
 function animate() {
-  setTimeout(function () {
-    requestAnimationFrame(animate);
-  }, 30);
+  render();
 
   elapsedtime = clock.getElapsedTime();
   deltatime = elapsedtime - oldElapsedTime;
   oldElapsedTime = elapsedtime;
 
-  if (boatModel) {
+  if (model) {
+    physic.calculateThrustForce(params.rpm);
+    physic.updateVelocity();
+
+    // حساب الاتجاه الذي يتحرك فيه القارب
+    const direction = new THREE.Vector3(0, 0, -1).applyMatrix4(new THREE.Matrix4().makeRotationY(physic.rotationAngle));
+    model.rotation.y = (-Math.PI/2+physic.rotationAngle);
+
+    model.position.x += direction.x * physic.velocity * deltatime;
+    model.position.z += direction.z * physic.velocity * deltatime;
+
     const submergedHeight = physic.getSubmergedHeight();
     const heightRatio = params.boatHeight / initialHeight;
-    boatModel.position.y = -submergedHeight / heightRatio ;
-    console.log('boat y position is ' + boatModel.position.y);
+    model.position.y = -submergedHeight / heightRatio;
+
     if (physic.isSinking()) {
       time += deltatime;
-
-      boatModel.position.y -= time; // Make the boat sink faster
-      console.log('The boat is sinking!' + "the boat sinking position is " + boatModel.position.y);
-    } else {
-      console.log('The boat is floating.');
+      model.position.y -= time;
     }
   }
 
-  controls.update();
-  renderer.render(scene, camera);
+  stats.update();
 }
 
-animate();
+function render() {
+  water.material.uniforms["time"].value += 1.0 / 60.0;
+  renderer.render(scene, camera);
+}
