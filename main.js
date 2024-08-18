@@ -21,7 +21,7 @@ let initialLength = 22.7;
 let container, stats;
 let camera, scene, renderer, loader, clock;
 let controls, water, sun, physic, gui, params, model;
-let rotationSpeed = 0.1; // سرعة الدوران
+let rotationSpeed = 0.01; // سرعة الدوران
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -147,9 +147,7 @@ function init() {
 
   // Keyboard controls
   window.addEventListener("keydown", onKeyDown);
-  window.addEventListener("keyup", onKeyUp);
 }
-
 function onKeyDown(event) {
   switch (event.code) {
     case "ArrowLeft":
@@ -159,10 +157,6 @@ function onKeyDown(event) {
       physic.updateRotationAngle(physic.rotationAngle - rotationSpeed);
       break;
   }
-}
-
-function onKeyUp(event) {
-  // Implement any logic needed when keys are released if necessary
 }
 
 function updateBoatParams() {
